@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonItem,IonList,IonSearchbar } from '@ionic/angular';
 import { MenuService } from '../../services/menu.service';
 import { Restaurant } from '../../models/restaurant.model';
@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
 })
-export class HomePage {
+export class HomePage{
 
   constructor(private menuService: MenuService) {
   this.carregarRestaurants()
@@ -38,6 +38,5 @@ this.restaurants = this.menuService.getRestaurants();
 buscarRestaurant() {
   this.restaurants = this.restaurants.filter((restaurant) => restaurant.name==this.searchTerm)
 }
-
 
 }
