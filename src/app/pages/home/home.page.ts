@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonText } from '@ionic/angular';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonItem,IonList,IonSearchbar } from '@ionic/angular';
+import { MenuService } from '../../services/menu.service';
+import { Restaurant } from '../../models/restaurant.model';
+import { FormsModule } from '@angular/forms';
 
 // KATA · Dimecres 25/11 (consulta la fitxa de la sessió)
 //
@@ -15,10 +18,26 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonText } from '@ionic/ang
 
 @Component({
   selector: 'app-home',
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonText],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonItem, IonList, IonSearchbar, FormsModule],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
 })
 export class HomePage {
-  
+
+  constructor(private menuService: MenuService) {
+  this.carregarRestaurants()
+  }
+
+searchTerm: string = "";
+restaurants: Restaurant[] = [];
+
+carregarRestaurants(): void {
+this.restaurants = this.menuService.getRestaurants();
+}
+
+buscarRestaurant() {
+  this.restaurants = this.restaurants.filter((restaurant) => restaurant.name==this.searchTerm)
+}
+
+
 }
