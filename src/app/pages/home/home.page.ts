@@ -1,5 +1,5 @@
-import { Component, OnChanges } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonItem,IonList,IonSearchbar } from '@ionic/angular';
+import { Component } from '@angular/core';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonList, IonSearchbar, IonLabel } from '@ionic/angular';
 import { MenuService } from '../../services/menu.service';
 import { Restaurant } from '../../models/restaurant.model';
 import { FormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonText, IonItem, IonList, IonSearchbar, FormsModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonList, IonSearchbar, FormsModule, IonLabel],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
 })
@@ -28,15 +28,27 @@ export class HomePage{
   this.carregarRestaurants()
   }
 
-searchTerm: string = "";
-restaurants: Restaurant[] = [];
+  searchQuery = '';
+
+  results: Restaurant[]=[];
+  restaurants: Restaurant[] = [];
 
 carregarRestaurants(): void {
 this.restaurants = this.menuService.getRestaurants();
 }
 
-buscarRestaurant() {
+/*buscarRestaurant() {
   this.restaurants = this.restaurants.filter((restaurant) => restaurant.name==this.searchTerm.trim())
-}
+}*/
+
+
+handleInput(event: Event) {
+  const target = event.target as HTMLIonSearchbarElement;
+  this.searchQuery = target.value?.toLowerCase() || '';
+  this.results = this.restaurants.filter((d) => d.name.toLowerCase().includes(this.searchQuery));
+
+
+  }
+
 
 }
