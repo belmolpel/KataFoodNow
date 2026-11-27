@@ -36,7 +36,7 @@ this.restaurants = this.menuService.getRestaurants();
 }
 
 buscarRestaurant() {
-  this.restaurants = this.restaurants.filter((restaurant) => restaurant.name==this.searchTerm)
+  this.restaurants = this.restaurants.filter((restaurant) => restaurant.name==this.searchTerm.trim())
 }
 
 }
